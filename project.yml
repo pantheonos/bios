@@ -1,0 +1,19 @@
+---
+mountfile: |
+  local attachments = {['boot/']='pantheon-bios/images/',['/rom']='reference/',['bios.lua']='pantheon-bios/bios.lua',['/']='pantheon-bios/computer/',}
+  if not mounter then
+    error("Not running in CraftOS-PC", 2)
+  end
+  for inside, outside in pairs(attachments) do
+    -- readonly mode not supported from cosrun
+    if (inside ~= "/") and (inside ~= "/rom") and (inside ~= "bios.lua") then
+      mounter.mount(inside, outside, false)
+    end
+  end
+name: bios
+attachments:
+  /: pantheon-bios/computer/
+  bios.lua: pantheon-bios/bios.lua
+  boot/: pantheon-bios/images/
+  /rom: reference/rom/
+...
