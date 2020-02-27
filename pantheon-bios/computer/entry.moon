@@ -13,6 +13,12 @@ for i, image in ipairs fs.list "/boot"
     PA_PRINT "#{i}. #{image}"
     images[i] = "/boot/"..image
 
+-- Boot directly if only one exists
+if #images == 1
+  term.clear!
+  -- Run image
+  dofile images[choice]
+
 -- Let the user choose an image to boot
 -- We don't have print or read, so we have to use primitives
 PA_PRINT "Please use the number row"
@@ -23,10 +29,7 @@ while true
   if event == "char"
     if tonumber param
       choice = tonumber param
-      if choice == 0
-        PA_PRINT "!!!!!!!!!"
-        os.shutdown!
-      elseif images[choice]
+      if images[choice]
         break
       else continue
     else continue
