@@ -210,8 +210,6 @@ os.pullEvent    = (filter) ->
     error "Terminated", 0
   return table.unpack data, 1, data.n
 
-os.sleep = sleep
-
 os.shutdown = ->
   native.os.shutdown!
   while true do coroutine.yield!
@@ -231,6 +229,7 @@ export sleep = (time=0) ->
   while true
     event, param = os.pullEvent "timer"
     PA_BREAK if param == timer
+os.sleep = sleep
 
 export loadfile = (file, env) ->
   expect 1, file, {"string"}

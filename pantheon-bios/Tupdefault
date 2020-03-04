@@ -1,0 +1,2 @@
+include_rules
+: *.moon |> !cc |> %B.lua

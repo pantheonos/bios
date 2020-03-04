@@ -8,6 +8,10 @@ for i, image in ipairs(fs.list("/boot")) do
     images[i] = "/boot/" .. image
   end
 end
+if #images == 1 then
+  term.clear()
+  dofile(images[1])
+end
 PA_PRINT("Please use the number row")
 PA_PRINT("Choose an image to boot (number)")
 local choice
@@ -18,10 +22,7 @@ while true do
     if event == "char" then
       if tonumber(param) then
         choice = tonumber(param)
-        if choice == 0 then
-          PA_PRINT("!!!!!!!!!")
-          os.shutdown()
-        elseif images[choice] then
+        if images[choice] then
           break
         else
           _continue_0 = true
@@ -41,4 +42,5 @@ while true do
     break
   end
 end
+term.clear()
 return dofile(images[choice])

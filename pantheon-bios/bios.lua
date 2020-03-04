@@ -246,7 +246,6 @@ os.pullEvent = function(filter)
   end
   return table.unpack(data, 1, data.n)
 end
-os.sleep = sleep
 os.shutdown = function()
   native.os.shutdown()
   while true do
@@ -275,6 +274,7 @@ sleep = function(time)
     end
   end
 end
+os.sleep = sleep
 loadfile = function(file, env)
   expect(1, file, {
     "string"

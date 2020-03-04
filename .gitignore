@@ -1,4 +1,5 @@
 reference
 .cosrun
+.tup
 cosrun.yml
 Makefile

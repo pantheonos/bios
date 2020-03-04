@@ -6,7 +6,7 @@ term.clear!
 term.setCursorPos 1, 1
 PA_PRINT "pantheon/entry #{PA_VERSION}"
 
--- List images in /boot/img/
+-- List images in /boot/
 images = {}
 for i, image in ipairs fs.list "/boot"
   unless fs.isDir "/boot/"..image
@@ -17,7 +17,7 @@ for i, image in ipairs fs.list "/boot"
 if #images == 1
   term.clear!
   -- Run image
-  dofile images[choice]
+  dofile images[1]
 
 -- Let the user choose an image to boot
 -- We don't have print or read, so we have to use primitives
