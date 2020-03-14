@@ -9,6 +9,9 @@ First, clone this repository, and then [craftos2-rom](https://github.com/MCJack1
 ```sh
 $ git clone daelvn/pantheon-bios && cd pantheon-bios
 $ git clone MCJack123/craftos2-rom reference/
+# Or, if using Alfons
+$ git clone daelvn/pantheon-bios && cd pantheon-bios
+$ alfons clone
 ```
 
 Now, to run the project you will need [COSRun 0.2](https://github.com/daelvn/cosrun). Follow the installation steps and then run:
@@ -16,6 +19,8 @@ Now, to run the project you will need [COSRun 0.2](https://github.com/daelvn/cos
 ```sh
 $ cosrun image unpack project.yml    # This is only needed once
 $ cosrun run bios
+# Or, if using Alfons
+$ alfons unpack run
 ```
 
 ## Developing
@@ -24,6 +29,8 @@ For developing, you will need [MoonScript](http://moonscript.org) to compile the
 
 ```sh
 $ moonc . && cosrun run bios
+# Or, if using Alfons, it automatically recompiles on rnu
+$ alfons run
 ```
 
 ## On CraftOS
