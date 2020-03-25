@@ -29,6 +29,7 @@ term.setCursorBlink false
 -- Primitives
 export PA_BREAK = -> while true do coroutine.yield!
 export PA_PRINT = (txt) ->
+  txt   = tostring txt
   count = 0
   for ch in txt\gmatch "."
     count += 1
@@ -308,7 +309,9 @@ if _CCPC_STARTUP_SCRIPT
 -- /entry.lua is the entrypoint
 ok, err = pcall -> dofile "/entry.lua"
 if not ok
+  term.setGraphicsMode 0
   PA_PRINT "FATAL ERROR: #{err}"
+  if dbg then kbreak!
   PA_BREAK! 
 
 -- End of BIOS

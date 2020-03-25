@@ -8,6 +8,21 @@ for i, image in ipairs(fs.list("/boot")) do
     images[i] = "/boot/" .. image
   end
 end
+if fs.exists("/etc/entry.conf") then
+  local content
+  do
+    local _with_0 = fs.open("/etc/entry.conf", "r")
+    content = _with_0.readAll()
+    _with_0.close()
+  end
+  for _index_0 = 1, #images do
+    local img = images[_index_0]
+    if img == content then
+      term.clear()
+      dofile(img)
+    end
+  end
+end
 if #images == 1 then
   term.clear()
   dofile(images[1])

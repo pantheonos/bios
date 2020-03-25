@@ -16,4 +16,5 @@ attachments:
   bios.lua: pantheon-bios/bios.lua
   boot/: pantheon-bios/images/
   /rom: reference/rom/
+  DEBUG: reference/debug/
 ...

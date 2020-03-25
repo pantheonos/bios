@@ -26,6 +26,7 @@ PA_BREAK = function()
   end
 end
 PA_PRINT = function(txt)
+  txt = tostring(txt)
   local count = 0
   for ch in txt:gmatch(".") do
     count = count + 1
@@ -341,7 +342,11 @@ local ok, err = pcall(function()
   return dofile("/entry.lua")
 end)
 if not ok then
+  term.setGraphicsMode(0)
   PA_PRINT("FATAL ERROR: " .. tostring(err))
+  if dbg then
+    kbreak()
+  end
   PA_BREAK()
 end
 term.redirect(term.native())

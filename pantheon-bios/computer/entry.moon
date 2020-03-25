@@ -13,6 +13,17 @@ for i, image in ipairs fs.list "/boot"
     PA_PRINT "#{i}. #{image}"
     images[i] = "/boot/"..image
 
+-- see if /etc/entry.conf exists
+if fs.exists "/etc/entry.conf"
+  local content
+  with fs.open "/etc/entry.conf", "r"
+    content = .readAll!
+    .close!
+  for img in *images
+    if img == content
+      term.clear!
+      dofile img
+
 -- Boot directly if only one exists
 if #images == 1
   term.clear!
