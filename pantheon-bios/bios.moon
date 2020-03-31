@@ -171,26 +171,27 @@ if _VERSION == "Lua 5.3"
     end
     ]])!
 
-PA_PRINT "Locking string metatable..."
-if string.find _HOST, "ComputerCraft"
-  -- Prevent access to metatables or environments of strings
-  -- These are global across all computers
-  string_mt = native.getmetatable ""
-  -- redefine getmetatable
-  export getmetatable = (t) ->
-    mt = native.getmetatable t
-    if mt == string_mt
-      native.error "Attempt to access string metatable", 2
-    return mt
-  if (_VERSION == "Lua 5.1") and not _CC_DISABLE_LUA51_FEATURES
-    string_env = native.getfenv ("").gsub
-    -- redefine getfenv
-    export getfenv = (env=2) ->
-      env += 1 if ("number" == native.type env) and env > 0
-      fenv = native.getfenv env
-      if fenv == string_env
-        return native.getfenv 0
-      return fenv
+unless pcall -> getmetatable ""
+  PA_PRINT "Locking string metatable..."
+  if string.find _HOST, "ComputerCraft"
+    -- Prevent access to metatables or environments of strings
+    -- These are global across all computers
+    string_mt = native.getmetatable ""
+    -- redefine getmetatable
+    export getmetatable = (t) ->
+      mt = native.getmetatable t
+      if mt == string_mt
+        native.error "Attempt to access string metatable", 2
+      return mt
+    if (_VERSION == "Lua 5.1") and not _CC_DISABLE_LUA51_FEATURES
+      string_env = native.getfenv ("").gsub
+      -- redefine getfenv
+      export getfenv = (env=2) ->
+        env += 1 if ("number" == native.type env) and env > 0
+        fenv = native.getfenv env
+        if fenv == string_env
+          return native.getfenv 0
+        return fenv
 
 -- Patch the error function on LuaJIT because specifying a level <= 0 crashes for some reason...?
 if jit
